@@ -6,6 +6,7 @@ import LoginPage from "./data/Pages/LoginPage";
 import BlogStartPage from "./data/Pages/BlogStartPage";
 import Blogs from "./data/Pages/Blogs";
 import NavBar from "./data/Components/NavBar";
+import PrivateRoute from "./data/Components/PrivateRoute";
 
 
 export default function App() {
@@ -30,12 +31,14 @@ export default function App() {
           <Route exact path="/login">
               <LoginPage login={login}/>
           </Route>
-          <Route exact path="/blogposts">
-              <BlogStartPage />
-              </Route>
-          <Route path="/blog/:blogPage">
+
+          <PrivateRoute isAuthenticated={isAuthenticated} exact path="/blogposts">
+              <BlogStartPage/>
+          </PrivateRoute>
+
+          <PrivateRoute isAuthenticated={isAuthenticated} exact path="/blog/:blogPage">
               <Blogs/>
-          </Route>
+          </PrivateRoute>
       </Switch>
       </>
   );
